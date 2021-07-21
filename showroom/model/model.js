@@ -45,22 +45,26 @@ exports.create = function (datasource) {
         //===
         getProducts : datasource.loadProducts,
         // //===
-        addProduct : function(name, imageTmpPath, callback){
-            if(name==''){
+        addProduct : function(editProductId, name, imageTmpPath, callback){
+            if(name == ''){
                 callback('Product name cannot empty')
                 return
             }
-            if(imageTmpPath==''){
+            if(editProductId == 0 && imageTmpPath == ''){
                 callback('Product image cannot be empty')
                 return
             }
-            datasource.addProduct(name, imageTmpPath, function(err){
+            datasource.addProduct(editProductId, name, imageTmpPath, function(err){
                 if(err){
                     callback('Could not add the product')
                     return
                 }
                 callback(false)
             })
-        }
+        },
+        //===
+        getProduct : datasource.loadSingleProduct,
+        //===
+        deleteProduct : datasource.deleteProduct
     }
 }
